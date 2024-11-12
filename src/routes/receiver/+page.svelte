@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment'
 	import { messageToSender } from '$lib/messages'
-	import provideCastPlatformInformation from '$lib/provideCastPlatformInformation'
 	import sendMessage from '$lib/sendMessage'
 	import type { CastReceiverContext } from 'chromecast-caf-receiver/cast.framework'
 	import type { LoadRequestData } from 'chromecast-caf-receiver/cast.framework.messages'
@@ -24,13 +23,6 @@
 			}, 100)
 
 		waitForCastAvailable()
-	})
-
-	// ----------- Apply the Cast Platform provider
-	$effect(() => {
-		if (browser) {
-			provideCastPlatformInformation()
-		}
 	})
 
 	// ----------- Start the Chromecast Session once we have the cast object available on the window
@@ -69,7 +61,9 @@
 </script>
 
 <svelte:head>
-	<script src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+		<!-- Polyfill and framework need to be loaded in sync, local setup, and Receiver setup need duplication -->
+		<script src="/platform-polyfill.js"></script>
+		<script defer src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
 </svelte:head>
 <div class="chromecast-receiver">
 	{#if castAvailable}
