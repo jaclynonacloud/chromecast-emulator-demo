@@ -6,10 +6,10 @@
 	import MuteIcon from '$lib/icons/MuteIcon.svelte'
 	import PauseIcon from '$lib/icons/PauseIcon.svelte'
 	import PlayIcon from '$lib/icons/PlayIcon.svelte'
+	import ReelIcon from '$lib/icons/ReelIcon.svelte'
 	import SeekBack10Icon from '$lib/icons/SeekBack10Icon.svelte'
 	import SeekForward10Icon from '$lib/icons/SeekForward10Icon.svelte'
 	import SoundIcon from '$lib/icons/SoundIcon.svelte'
-	import ReelIcon from '$lib/icons/ReelIcon.svelte'
 	import WobblyCastIcon from '$lib/icons/WobblyCastIcon.svelte'
 	import {
 		messageConnected,
@@ -33,18 +33,22 @@
 
 	const CAST_WEBSOCKET_URL: string = 'ws://localhost:8008/v2/ipc'
 
-	const DEFAULT_MEDIA: GenericMediaInformation = {
-		contentId: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
-		metadata: {
-			title: 'Big Buck Bunny',
-			subtitle: 'Gettin Real Tired of Big Buck Bunny',
-			images: [{ url: 'https://peach.blender.org/wp-content/uploads/bbb-splash.png' }]
-		} as GenericMediaMetadata,
-		contentType: 'video/mp4',
-		// @ts-ignore
-		streamType: 'BUFFERED',
-		// @ts-ignore
-		mediaCategory: 'VIDEO'
+	const DEFAULT_MEDIA = {
+        type: 'LOAD',
+        requestId: Date.now(),
+        media: {
+			contentId: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
+			metadata: {
+				title: 'Big Buck Bunny',
+				subtitle: 'Gettin Real Tired of Big Buck Bunny',
+				images: [{ url: 'https://peach.blender.org/wp-content/uploads/bbb-splash.png' }]
+			} as GenericMediaMetadata,
+			contentType: 'video/mp4',
+			// @ts-ignore
+			streamType: 'BUFFERED',
+			// @ts-ignore
+			mediaCategory: 'VIDEO'
+		}
 	}
 
 	const DEFAULT_LOAD_REQUEST = JSON.stringify(DEFAULT_MEDIA, null, 2)
@@ -111,6 +115,7 @@
 	const handleMediaLoad = () => {
 		try {
 			const mediaInfo = JSON.parse(loadRequest)
+			console.log(mediaInfo)
 			sendMessage(ws, messageMediaLoad(mediaInfo))
 		} catch (e) {
 			console.error(e)

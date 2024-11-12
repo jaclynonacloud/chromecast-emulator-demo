@@ -16,7 +16,9 @@
 
 	/** https://stackoverflow.com/questions/10143904/cleaning-the-json-string-from-special-chars */
 	const validateJSONInput = (text: string) => {
-		return text.replace(/[\u0080-\uFFFF]+/g, '')
+		// removing validate for now -- please write good load requests : )
+		// return text.replace(/[\u0080-\uFFFF]+/g, '')
+		return text
 	}
 
 	$effect(() => {
