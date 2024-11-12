@@ -1,0 +1,20 @@
+{
+  "name": "chromecast-emulator-wss",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jaclyn Staples",
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "ws": "^8.18.0"
+  },
+  "scripts": {
+    "serve": "npx tsx index.ts"
+  },
+  "devDependencies": {
+    "@types/chalk": "^2.2.4",
+    "@types/ws": "^8.5.13"
+  }
+}
