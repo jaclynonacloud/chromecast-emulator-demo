@@ -134,10 +134,7 @@ castContext
 Make sure you have a way to disable any of the above custom work when you are testing a physical Chromecast device or it may cause unintended problems.
 
 
-
-<center>
 <img src="./static/idle-icon.png" height=120>
-</center>
 
 ## Troubleshooting
 ### Video metadata provided to the mini-controller, but video is not playing on the receiver
