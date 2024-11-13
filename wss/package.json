@@ -6,12 +6,15 @@
   "license": "MIT",
   "type": "module",
   "private": true,
+  "engines": {
+		"yarn": "^1.22.19"
+	},
+  "scripts": {
+    "serve": "tsx index.ts"
+  },
   "dependencies": {
     "chalk": "^5.3.0",
     "ws": "^8.18.0"
-  },
-  "scripts": {
-    "serve": "npx tsx index.ts"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.4",

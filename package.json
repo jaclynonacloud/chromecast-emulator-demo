@@ -5,6 +5,9 @@
 	"workspaces": [
 		"wss"
 	],
+	"engines": {
+		"yarn": "^1.22.19"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"serve": "yarn --cwd wss serve"
