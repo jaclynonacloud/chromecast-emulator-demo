@@ -2,6 +2,7 @@
 	import { browser } from '$app/environment'
 	import LoadRequestInput from '$lib/components/LoadRequestInput.svelte'
 	import ProgressBar from '$lib/components/ProgressBar.svelte'
+	import { DEFAULT_MEDIA, DEFAULT_QUEUED_MEDIA, TemplateLoadRequestEnum } from '$lib/constants'
 	import IconWrapper from '$lib/icons/IconWrapper.svelte'
 	import MuteIcon from '$lib/icons/MuteIcon.svelte'
 	import PauseIcon from '$lib/icons/PauseIcon.svelte'
@@ -33,24 +34,6 @@
 
 	const CAST_WEBSOCKET_URL: string = 'ws://localhost:8008/v2/ipc'
 
-	const DEFAULT_MEDIA = {
-        type: 'LOAD',
-        requestId: Date.now(),
-        media: {
-			contentId: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
-			metadata: {
-				title: 'Big Buck Bunny',
-				subtitle: 'Gettin Real Tired of Big Buck Bunny',
-				images: [{ url: 'https://peach.blender.org/wp-content/uploads/bbb-splash.png' }]
-			} as GenericMediaMetadata,
-			contentType: 'video/mp4',
-			// @ts-ignore
-			streamType: 'BUFFERED',
-			// @ts-ignore
-			mediaCategory: 'VIDEO'
-		}
-	}
-
 	const DEFAULT_LOAD_REQUEST = JSON.stringify(DEFAULT_MEDIA, null, 2)
 
 	let ws: WebSocket | null = $state(null)
@@ -58,6 +41,7 @@
 	let muted: boolean = $state(false)
 	let isConnected: boolean = $state(false)
 	let currentTime: number = $state(0)
+	let templateLoadRequest = $state(TemplateLoadRequestEnum.BASIC)
 	let loadRequest: string = $state(DEFAULT_LOAD_REQUEST)
 
 	type GenericMediaInformation = MediaInformation & { metadata: GenericMediaMetadata }
@@ -129,6 +113,20 @@
 
 	const handleTimeUpdate = () => {
 		sendMessage(ws, messageSeek(currentTime))
+	}
+
+	// ----------- Handle Load Request Template Change
+	const handleLoadRequestTemplateChange = (ev: any) => {
+		const type = parseInt(ev.target.value || '0')
+		switch (type) {
+			case TemplateLoadRequestEnum.BASIC:
+				loadRequest = JSON.stringify(DEFAULT_MEDIA, null, 2)
+				break
+			case TemplateLoadRequestEnum.BASIC_QUEUE:
+				loadRequest = JSON.stringify(DEFAULT_QUEUED_MEDIA, null, 2)
+				console.log('new load request', loadRequest)
+				break
+		}
 	}
 
 	// ----------- Handle CAF Messages
@@ -207,6 +205,32 @@
 	</div>
 </div>
 
+<section class="default-requests">
+	<h3>Pick from Template:</h3>
+	<div>
+		<label class:active={templateLoadRequest === TemplateLoadRequestEnum.BASIC}>
+			<input
+				type="radio"
+				name="loadRequests"
+				value={TemplateLoadRequestEnum.BASIC}
+				bind:group={templateLoadRequest}
+				onchange={handleLoadRequestTemplateChange}
+			/>
+			<div>Basic Load Request</div>
+		</label>
+		<label class:active={templateLoadRequest === TemplateLoadRequestEnum.BASIC_QUEUE}>
+			<input
+				type="radio"
+				name="loadRequests"
+				value={TemplateLoadRequestEnum.BASIC_QUEUE}
+				bind:group={templateLoadRequest}
+				onchange={handleLoadRequestTemplateChange}
+			/>
+			<div>Basic Queue Load Request</div>
+		</label>
+	</div>
+</section>
+
 <LoadRequestInput bind:value={loadRequest} />
 
 <style lang="scss">
@@ -252,6 +276,40 @@
 				justify-self: flex-end;
 				display: flex;
 				align-items: center;
+			}
+		}
+	}
+
+	.default-requests {
+		display: flex;
+		flex-flow: column;
+		gap: 0.45rem;
+		padding: 1.45rem 0 0.45rem 0;
+		color: white;
+
+		& > div {
+			display: flex;
+			flex-flow: row wrap;
+			align-items: center;
+			gap: 0.45rem;
+
+			label {
+				display: flex;
+				flex-flow: row wrap;
+				gap: 0.45rem;
+				background: var(--col-obj-primary);
+				padding: 0.45rem 0.65rem;
+				box-sizing: border-box;
+				border: solid 1px var(--col-obj-border);
+				border-radius: 0.35rem;
+
+				input {
+					display: none;
+				}
+
+				&.active {
+					background: var(--col-obj-accent);
+				}
 			}
 		}
 	}

@@ -6,6 +6,8 @@
 	}
 	let { value = $bindable() }: LoadRequestInputProps = $props()
 
+	let lastValue: string = $state(value)
+
 	let html: string = $state(value)
 
 	let el: HTMLElement | null = $state(null)
@@ -27,6 +29,7 @@
 			isValid = !!JSON.parse(sanitizedJSONString)
 
 			if (isValid) {
+				lastValue = sanitizedJSONString
 				value = sanitizedJSONString
 			}
 		} catch (e) {
@@ -105,7 +108,16 @@
 		}
 	}
 
+	// Update the value if it changes during its lifecycle from outside the component
+	$effect(() => {
+		if (value !== lastValue) {
+			lastValue = value
+			html = value
+		}
+	})
+
 	onMount(() => {
+		lastValue = value
 		html = value
 	})
 </script>
