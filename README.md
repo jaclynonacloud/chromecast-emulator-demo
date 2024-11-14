@@ -22,7 +22,7 @@ This is an example on how to develop a Chromecast Emulator for your own project!
 * [UI SVG Set](https://www.svgrepo.com/collection/solar-broken-line-icons)
 
 ## How it Works
-The HTML Chromecast receiver is a static webpage the is provided to a Google Console where it is registered and assigned an Application ID. Because of this, we can exploit the page slightly, and trick our Chrome browser into allowing a Chromecast receiver page to think it's running on Chromecast hardware.
+The HTML Chromecast receiver is a static webpage that is provided to a Google Console where it is registered and assigned an Application ID. Because of this, we can exploit the page slightly, and trick our Chrome browser into allowing a Chromecast receiver page to think it's running on Chromecast hardware.
 
 This is done via the following:
 1. A polyfill to provide Chromecast relevant objects to the `window`.
