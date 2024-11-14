@@ -120,11 +120,3 @@ export const messageMediaLoad = (media: MediaInformation) => ({
 	senderId: 'SystemSender',
 	data: media
 })
-
-// This is used by the Receiver to send information to the Sender.
-// Events like the `DURATION_CHANGE` and `MEDIA_STATUS` can move through here.
-export const messageToSender = (data: Record<string, any>) => ({
-	namespace: 'urn:x-cast:cast-emulation',
-	senderOnly: true,
-	data
-})

@@ -1,7 +1,5 @@
 <script lang="ts">
 	import { browser } from '$app/environment'
-	import { messageToSender } from '$lib/messages'
-	import sendMessage from '$lib/sendMessage'
 	import type { CastReceiverContext } from 'chromecast-caf-receiver/cast.framework'
 	import type { LoadRequestData } from 'chromecast-caf-receiver/cast.framework.messages'
 	import { onDestroy } from 'svelte'
@@ -61,9 +59,12 @@
 </script>
 
 <svelte:head>
-		<!-- Polyfill and framework need to be loaded in sync, local setup, and Receiver setup need duplication -->
-		<script src="/platform-polyfill.js"></script>
-		<script defer src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+	<!-- Polyfill and framework need to be loaded in sync, local setup, and Receiver setup need duplication -->
+	<script src="/platform-polyfill.js"></script>
+	<script
+		defer
+		src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"
+	></script>
 </svelte:head>
 <div class="chromecast-receiver">
 	{#if castAvailable}
