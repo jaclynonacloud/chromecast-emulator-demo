@@ -211,7 +211,6 @@
 		<label class:active={templateLoadRequest === TemplateLoadRequestEnum.BASIC}>
 			<input
 				type="radio"
-				name="loadRequests"
 				value={TemplateLoadRequestEnum.BASIC}
 				bind:group={templateLoadRequest}
 				onchange={handleLoadRequestTemplateChange}
@@ -221,7 +220,6 @@
 		<label class:active={templateLoadRequest === TemplateLoadRequestEnum.BASIC_QUEUE}>
 			<input
 				type="radio"
-				name="loadRequests"
 				value={TemplateLoadRequestEnum.BASIC_QUEUE}
 				bind:group={templateLoadRequest}
 				onchange={handleLoadRequestTemplateChange}
