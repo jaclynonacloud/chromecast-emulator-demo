@@ -73,3 +73,10 @@
 		<div>Loading...</div>
 	{/if}
 </div>
+
+<style>
+	cast-media-player {
+		--splash-image: url('./splash-icon.png');
+		--splash-size: contain;
+	}
+</style>

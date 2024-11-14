@@ -146,8 +146,6 @@
 <svelte:head>
 	<script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 </svelte:head>
-<div>Sender!</div>
-
 <header>
 	<div>
 		<div style:color={isConnected ? 'var(--col-obj-success)' : 'white'}>Cast Locally</div>
@@ -163,7 +161,7 @@
 	</div>
 </header>
 
-<div class="mini-controller">
+<section class="mini-controller">
 	<h2>{@html title || '&nbsp;'}</h2>
 	<h3>{@html subtitle || '&nbsp;'}</h3>
 	<img src={images?.[0]?.url || 'idle-icon.png'} alt="thumb" />
@@ -203,7 +201,7 @@
 			/>
 		</div>
 	</div>
-</div>
+</section>
 
 <section class="default-requests">
 	<h3>Pick from Template:</h3>
@@ -238,6 +236,7 @@
 		align-items: center;
 		gap: 0.45rem;
 		padding: 0 0 1.45rem;
+		margin-top: 1.45rem;
 		color: white;
 
 		& > div {
