@@ -10,6 +10,7 @@
 	:root {
 		--col-obj-background: black;
 		--col-obj-primary: rgb(39, 39, 39);
+		--col-obj-accent: rgb(39, 101, 143);
 		--col-obj-border: rgb(78, 78, 78);
 		--col-obj-error: rgb(122, 15, 15);
 		--col-obj-success: rgb(63, 226, 98);
