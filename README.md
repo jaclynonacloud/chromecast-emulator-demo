@@ -82,7 +82,7 @@ Controls | &nbsp;
 -- | -- |
 **Metadata** | Includes the title/subtitle and poster image that can appear during content playback.
 **Seek Bar** | Includes the seeking bar, the current duration and the total duration of the content.
-**Basic Controls** | Includes the play/pause, FF/RW controls.
+**Basic Controls** | Includes the play/pause/stop, FF/RW controls.  Also includes prev/next items for queues.
 **Volume Controls** | Includes the mute/unmute toggle and the volume slider.
 
 
