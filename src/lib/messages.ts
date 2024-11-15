@@ -51,6 +51,16 @@ export const messagePause = () => ({
 	}
 })
 
+export const messageStop = () => ({
+	namespace: 'urn:x-cast:com.google.cast.media',
+	senderId: 'SystemSender',
+	data: {
+		type: 'STOP',
+		mediaSessionId: get(mediaSessionId),
+		requestId: Date.now()
+	}
+})
+
 export const messageMute = (volume: number, muted: boolean) => ({
 	namespace: 'urn:x-cast:com.google.cast.media',
 	senderId: 'SystemSender',
@@ -112,6 +122,17 @@ export const messageVolume = (volume: number) => ({
 		},
 		mediaSessionId: get(mediaSessionId),
 		requestId: Date.now()
+	}
+})
+
+export const messageJumpItem = (jump: number = 1) => ({
+	namespace: 'urn:x-cast:com.google.cast.media',
+	senderId: 'SystemSender',
+	data: {
+		type: 'QUEUE_UPDATE',
+		jump,
+		requestId: Date.now(),
+		mediaSessionId: get(mediaSessionId)
 	}
 })
 

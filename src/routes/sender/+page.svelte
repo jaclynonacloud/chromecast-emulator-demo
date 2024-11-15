@@ -5,15 +5,19 @@
 	import { DEFAULT_MEDIA, DEFAULT_QUEUED_MEDIA, TemplateLoadRequestEnum } from '$lib/constants'
 	import IconWrapper from '$lib/icons/IconWrapper.svelte'
 	import MuteIcon from '$lib/icons/MuteIcon.svelte'
+	import NextIcon from '$lib/icons/NextIcon.svelte'
 	import PauseIcon from '$lib/icons/PauseIcon.svelte'
 	import PlayIcon from '$lib/icons/PlayIcon.svelte'
+	import PrevIcon from '$lib/icons/PrevIcon.svelte'
 	import ReelIcon from '$lib/icons/ReelIcon.svelte'
 	import SeekBack10Icon from '$lib/icons/SeekBack10Icon.svelte'
 	import SeekForward10Icon from '$lib/icons/SeekForward10Icon.svelte'
 	import SoundIcon from '$lib/icons/SoundIcon.svelte'
+	import StopIcon from '$lib/icons/StopIcon.svelte'
 	import WobblyCastIcon from '$lib/icons/WobblyCastIcon.svelte'
 	import {
 		messageConnected,
+		messageJumpItem,
 		messageMediaLoad,
 		messageMute,
 		messagePause,
@@ -22,6 +26,7 @@
 		messageSeek,
 		messageSkipBack,
 		messageSkipForward,
+		messageStop,
 		messageVolume
 	} from '$lib/messages'
 	import sendMessage from '$lib/sendMessage'
@@ -169,9 +174,12 @@
 	<ProgressBar bind:currentTime {duration} {handleTimeUpdate} />
 
 	<div class="controls">
-		<div>
+		<div class="playback">
 			<IconWrapper onClicked={() => sendMessage(ws, messagePlay())}><PlayIcon /></IconWrapper>
 			<IconWrapper onClicked={() => sendMessage(ws, messagePause())}><PauseIcon /></IconWrapper>
+			<IconWrapper onClicked={() => sendMessage(ws, messageStop())}><StopIcon /></IconWrapper>
+			<IconWrapper onClicked={() => sendMessage(ws, messageJumpItem(-1))}><PrevIcon /></IconWrapper>
+			<IconWrapper onClicked={() => sendMessage(ws, messageJumpItem(1))}><NextIcon /></IconWrapper>
 		</div>
 
 		<div class="seek">
@@ -262,16 +270,25 @@
 		}
 
 		.controls {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
+			display: flex;
+			flex-flow: row wrap;
+			align-items: center;
+
+			.playback {
+				display: flex;
+				flex-flow: row wrap;
+			}
 
 			.seek {
-				justify-self: center;
+				flex: 1;
+				display: flex;
+				justify-content: center;
 			}
 
 			.sound {
-				justify-self: flex-end;
+				flex: 1;
 				display: flex;
+				justify-content: flex-end;
 				align-items: center;
 			}
 		}
